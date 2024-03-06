@@ -4,9 +4,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/revandpratama/go-simple-blog-api/dto"
+	"github.com/revandpratama/go-simple-blog-api/helper"
 )
 
-func HandleError(g *gin.Context, err error)  {
+func HandleError(g *gin.Context, err error) {
 	var statusCode int
 
 	switch err.(type) {
@@ -20,9 +22,9 @@ func HandleError(g *gin.Context, err error)  {
 		statusCode = http.StatusInternalServerError
 	}
 
-	res := helpers.Response(dto.ResponseParam{
+	res := helper.Response(dto.ResponseParam{
 		StatusCode: statusCode,
-		Message: err.Error(),
+		Message:    err.Error(),
 	})
 
 	g.JSON(statusCode, res)
