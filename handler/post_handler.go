@@ -1,7 +1,12 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
+	"github.com/revandpratama/go-simple-blog-api/dto"
+	"github.com/revandpratama/go-simple-blog-api/errorhandler"
+	"github.com/revandpratama/go-simple-blog-api/helper"
 	"github.com/revandpratama/go-simple-blog-api/service"
 )
 
@@ -20,7 +25,17 @@ func NewPostHandler(s service.PostService) *postHandler {
 }
 
 func (h *postHandler) GetAll(g *gin.Context) {
-	// post, err := h.postService.GetAll()
+	posts, err := h.postService.GetAll()
+	if err != nil {
+		errorhandler.HandleError(g, err)
+		return
+	}
 
-	// g.JSON(http.StatusOK, res)
+	res := helper.Response(dto.ResponseParam{
+		StatusCode: http.StatusOK,
+		Message:    "Success get all posts",
+		Data:       posts,
+	})
+
+	g.JSON(http.StatusOK, res)
 }
