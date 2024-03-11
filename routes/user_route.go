@@ -8,7 +8,7 @@ import (
 	"github.com/revandpratama/go-simple-blog-api/service"
 )
 
-func UserRouter(api gin.RouterGroup) {
+func UserRouter(api *gin.RouterGroup) {
 	userRepository := repository.NewUserRepository(config.DB)
 	userService := service.NewUserService(userRepository)
 	userHandler := handler.NewUserHandler(userService)
