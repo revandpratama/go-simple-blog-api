@@ -14,10 +14,16 @@ func main() {
 
 	fmt.Println("Database initiated..")
 	config.LoadDB()
-	
+
 	r := gin.Default()
 
 	api := r.Group("/api")
 
 	routes.PostRoutes(api)
+	routes.UserRouter(api)
+
+
+	addresStr := fmt.Sprintf("localhost:%v", config.ENV.PORT)
+
+	r.Run(addresStr)
 }
