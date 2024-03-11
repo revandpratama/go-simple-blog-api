@@ -13,7 +13,7 @@ type authHandler struct {
 	userService service.UserService
 }
 
-func NewAuthHandler(s service.UserService) *authHandler {
+func NewUserHandler(s service.UserService) *authHandler {
 	return &authHandler{userService: s}
 }
 
@@ -50,9 +50,9 @@ func (h *authHandler) Register(g *gin.Context) {
 		return
 	}
 
-	res:= dto.ResponseParam{
-		StatusCode:  http.StatusCreated,
-		Message:     "Successfully registered",
+	res := dto.ResponseParam{
+		StatusCode: http.StatusCreated,
+		Message:    "Successfully registered",
 	}
 
 	g.JSON(http.StatusCreated, res)
